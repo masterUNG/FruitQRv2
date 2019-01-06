@@ -1,5 +1,6 @@
 package kiky.beam.lilly.th.ac.rmutk.fruitqr;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
@@ -48,6 +49,7 @@ public class ServiceActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.itemQR){
+        startActivity(new Intent(ServiceActivity.this, QRActivity.class));
 
         }
 
