@@ -55,7 +55,8 @@ public class QRFragment extends Fragment implements ZXingScannerView.ResultHandl
 
         resultQRcode = result.toString().trim();
         Log.d("6janV2","result ==> "+ resultQRcode);
-        getActivity().finish();
+
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contentQRfragment,DetailFragment.detailFragment(resultQRcode)).commit();
 
         Handler handler = new Handler();  //Handler ระบบน่วงเวลา
         handler.postDelayed(new Runnable() {//postDelayed ทำให้ดีเล ช้าลง 2000=0วิ
