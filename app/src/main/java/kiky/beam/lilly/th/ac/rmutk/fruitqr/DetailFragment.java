@@ -1,10 +1,12 @@
 package kiky.beam.lilly.th.ac.rmutk.fruitqr;
 
 
+import android.content.Intent;
 import android.os.Binder;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,10 +49,31 @@ public class DetailFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+//        Create Toolbar
+        createToolbar();
+
         showView();
 
 
     } //Main Method
+
+    private void createToolbar() {
+        Toolbar toolbar = getView().findViewById(R.id.toolbarDetail);
+        ((QRActivity)getActivity()).setSupportActionBar(toolbar);
+        ((QRActivity) getActivity()).getSupportActionBar().setTitle("Detail");
+        ((QRActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
+        ((QRActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = getActivity().getIntent();
+                getActivity().finish();
+                startActivity(intent);
+            }
+        });
+
+
+    }
 
     private void showView() {
         qrCode = getArguments().getString("QRcode");
