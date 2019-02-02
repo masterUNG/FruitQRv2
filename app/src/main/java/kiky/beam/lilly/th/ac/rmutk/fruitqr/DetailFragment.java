@@ -9,7 +9,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 
 /**
@@ -17,7 +23,8 @@ import android.widget.TextView;
  */
 public class DetailFragment extends Fragment {
 
-    private  String qrCode;
+    private  String qrCode, nameString, imageString, amountString, unitString,
+            dateString, idShopString, nameShopString, addressString, phoneString;
 
     public DetailFragment() {
         // Required empty public constructor
@@ -58,6 +65,21 @@ public class DetailFragment extends Fragment {
 
                 String json = getDataWhereOneColumn.get();
                 Log.d("2FebV1", "json ==> " + json);
+
+                JSONArray jsonArray = new JSONArray(json);
+                JSONObject jsonObject = jsonArray.getJSONObject(0);
+
+                nameString = jsonObject.getString("Name");
+                imageString = jsonObject.getString("Image");
+                idShopString = jsonObject.getString("idUser");
+                amountString = jsonObject.getString("Amount");
+                unitString = jsonObject.getString("Unit");
+
+                TextView nameTextView = getView().findViewById(R.id.txtName);
+                nameTextView.setText(nameString);
+
+                ImageView imageView = getView().findViewById(R.id.imvDetail);
+                Picasso.get().load(imageString).into(imageView);
 
 
 
