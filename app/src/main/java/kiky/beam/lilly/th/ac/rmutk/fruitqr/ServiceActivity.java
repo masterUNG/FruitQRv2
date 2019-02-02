@@ -18,11 +18,14 @@ public class ServiceActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle; //ทำการเชื่อม  toolbar กับ ActionBarDrawerToggle
+    private String idString, nameUserString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service);
+
+        getUser();
 
 //        Create Toobar
         Toolbar toolbar = findViewById(R.id.toobarService);
@@ -37,6 +40,18 @@ public class ServiceActivity extends AppCompatActivity {
 
 
     } //Main Method
+
+    private void getUser() {
+        idString = getIntent().getStringExtra("id");
+        try {
+
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

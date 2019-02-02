@@ -99,7 +99,7 @@ public class MainFragment extends Fragment {
                         Log.d("6janV1","json ==> " + jsonString);
 
                         boolean b = true;
-                        String truePassword = null, name = null;
+                        String truePassword = null, name = null, idString = null;
 
                         JSONArray jsonArray = new JSONArray(jsonString);
                         for (int i=0; i<jsonArray.length(); i += 1){
@@ -108,7 +108,7 @@ public class MainFragment extends Fragment {
                                 b = false;
                                 truePassword = jsonObject.getString("Password");
                                 name = jsonObject.getString("Name");
-
+                                idString = jsonObject.getString("id");
                             }
                         }
 
@@ -117,6 +117,7 @@ public class MainFragment extends Fragment {
                         }else if (password.equals(truePassword)) {
                             Toast.makeText(getActivity(),"Welcome"+name,Toast.LENGTH_SHORT).show();;
                             Intent intent = new Intent(getActivity(), ServiceActivity.class);
+                            intent.putExtra("id", idString);
                             startActivity(intent);
                             getActivity().finish(); //คำสั่งปิดแอพ
 
