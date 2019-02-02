@@ -14,6 +14,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 public class ServiceActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
@@ -27,26 +30,36 @@ public class ServiceActivity extends AppCompatActivity {
 
         getUser();
 
-//        Create Toobar
+    } //Main Method
+
+    private void createToobar() {
         Toolbar toolbar = findViewById(R.id.toobarService);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setSubtitle(nameUserString);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationIcon(R.drawable.ic_action_hamberger); //ทำแถบเมณูเป็น Hamberger
 
 //        Create Hamberger Icon
-            drawerLayout = findViewById(R.id.layoutDrawerLayout);
-            actionBarDrawerToggle = new ActionBarDrawerToggle(ServiceActivity.this, drawerLayout, R.string.open,R.string.close); //ต้องใส่ค่า open และ close ใน string
-
-
-    } //Main Method
+        drawerLayout = findViewById(R.id.layoutDrawerLayout);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(ServiceActivity.this, drawerLayout, R.string.open,R.string.close); //ต้องใส่ค่า open และ close ใน string
+    }
 
     private void getUser() {
         idString = getIntent().getStringExtra("id");
         try {
 
+            Myconstant myconstant = new Myconstant();
+            GetDataWhereOneColumn getDataWhereOneColumn = new GetDataWhereOneColumn(ServiceActivity.this);
+            getDataWhereOneColumn.execute("id", idString, myconstant.getUrlGetUserWhereId());
+            String json = getDataWhereOneColumn.get();
 
+            JSONArray jsonArray = new JSONArray(json);
+            JSONObject jsonObject = jsonArray.getJSONObject(0);
 
+            nameUserString = jsonObject.getString("Name");
+
+            createToobar();
 
         } catch (Exception e) {
             e.printStackTrace();
